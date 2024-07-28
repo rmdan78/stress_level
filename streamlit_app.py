@@ -3,8 +3,8 @@ import pandas as pd
 import pickle
 
 # Muat model
-with open('model_stress.pkl', 'rb') as file:
-    model = pickle.load(file)
+
+    model = pickle.load(open('model_stress.pkl', 'rb'))
 
 # Judul aplikasi
 st.title("Form Prediksi Tingkat Stres")
