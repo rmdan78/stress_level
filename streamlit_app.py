@@ -4,7 +4,7 @@ import pickle
 
 # Muat model
 
-    model = pickle.load(open('model_stress.pkl', 'rb'))
+model = pickle.load(open('model_stress.pkl', 'rb'))
 
 # Judul aplikasi
 st.title("Form Prediksi Tingkat Stres")
