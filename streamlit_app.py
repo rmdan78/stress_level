@@ -33,7 +33,8 @@ if st.button('Prediksi Tingkat Stres'):
     
     a = pickle.load(open('model_titanic.pkl', 'rb'))
     hasil = a.predict(df_baru)
-     st.dataframe(hasil)
+    st.dataframe(hasil)
+    
 # Menampilkan DataFrame
 if 'dataframe' in st.session_state:
     st.header("DataFrame Sebelumnya")
