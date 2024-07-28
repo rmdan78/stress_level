@@ -4,6 +4,16 @@ import pandas as pd
 # Judul aplikasi
 st.title("Aplikasi Input Data dengan Streamlit")
 
+# Fungsi untuk menambahkan data ke DataFrame di session_state
+def tambah_data(luas, jumlah_kamar, harga):
+    data_baru = {'Luas': [luas], 'Jumlah_Kamar': [jumlah_kamar], 'Harga': [harga]}
+    df_baru = pd.DataFrame(data_baru)
+    
+    if 'dataframe' not in st.session_state:
+        st.session_state.dataframe = df_baru
+    else:
+        st.session_state.dataframe = pd.concat([st.session_state.dataframe, df_baru], ignore_index=True)
+
 # Membuat form input
 st.header("Masukkan Data")
 
@@ -14,16 +24,7 @@ harga = st.number_input('Harga (Rp)', min_value=0)
 
 # Tombol untuk menambahkan data ke DataFrame
 if st.button('Tambahkan Data'):
-    # Data baru
-    data_baru = {'Luas': [luas], 'Jumlah_Kamar': [jumlah_kamar], 'Harga': [harga]}
-    df_baru = pd.DataFrame(data_baru)
-    
-    # Menyimpan atau menampilkan DataFrame
-    if 'dataframe' not in st.session_state:
-        st.session_state.dataframe = df_baru
-    else:
-        st.session_state.dataframe = pd.concat([st.session_state.dataframe, df_baru], ignore_index=True)
-    
+    tambah_data(luas, jumlah_kamar, harga)
     st.success("Data berhasil ditambahkan!")
 
 # Menampilkan DataFrame
