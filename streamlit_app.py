@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
+import pickle
+
+# Muat model
+with open('model_stress.pkl', 'rb') as file:
+    model = pickle.load(file)
 
 # Judul aplikasi
 st.title("Form Prediksi Tingkat Stres")
@@ -9,13 +13,13 @@ st.title("Form Prediksi Tingkat Stres")
 st.header("Masukkan Data")
 
 # Input data
-sleep_quality = st.number_input('Kindly Rate your Sleep Quality 😴', min_value=0, max_value=5, step=1)
-headaches_frequency = st.number_input('How many times a week do you suffer headaches 🤕?', min_value=0, max_value=5, step=1)
-academic_performance = st.number_input('How would you rate your academic performance 👩‍🎓?', min_value=0, max_value=5, step=1)
-study_load = st.number_input('How would you rate your study load?', min_value=0, max_value=5, step=1)
-extracurricular_activities = st.number_input('How many times a week you practice extracurricular activities 🎾?', min_value=0, max_value=5, step=1)
+sleep_quality = st.number_input('Kindly Rate your Sleep Quality 😴', min_value=1, max_value=5, step=1)
+headaches_frequency = st.number_input('How many times a week do you suffer headaches 🤕?', min_value=0, max_value=7, step=1)
+academic_performance = st.number_input('How would you rate your academic performance 👩‍🎓?', min_value=1, max_value=5, step=1)
+study_load = st.number_input('How would you rate your study load?', min_value=1, max_value=5, step=1)
+extracurricular_activities = st.number_input('How many times a week you practice extracurricular activities 🎾?', min_value=0, max_value=7, step=1)
 
-# Tombol untuk menambahkan data ke DataFrame
+# Tombol untuk membuat prediksi
 if st.button('Prediksi Tingkat Stres'):
     # Data baru
     data_baru = {
@@ -27,12 +31,11 @@ if st.button('Prediksi Tingkat Stres'):
     }
     df_baru = pd.DataFrame(data_baru)
     
-    # Menampilkan DataFrame
-    st.header("Data yang Dimasukkan")
-    st.dataframe(df_baru)
+    # Membuat prediksi
+    prediksi = model.predict(df_baru)
     
-    model = KNeighborsClassifier(n_neighborsm=6, p= 1, weights= 'distance')
-    model.predict(df_baru)
+    # Menampilkan hasil prediksi
+    st.success(f"Tingkat Stres Anda: {prediksi[0]}")
 
 # Menampilkan DataFrame
 if 'dataframe' in st.session_state:
