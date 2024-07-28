@@ -31,7 +31,7 @@ if st.button('Prediksi Tingkat Stres'):
     st.header("Data yang Dimasukkan")
     st.dataframe(df_baru)
     
-    a = pickle.load(open('model_titanic.pkl', 'rb'))
+    a = pickle.load(open('model.pkl', 'rb'))
     hasil = a.predict(df_baru)
     st.dataframe(hasil)
     
