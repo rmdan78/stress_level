@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pickle
 
 # Judul aplikasi
 st.title("Form Prediksi Tingkat Stres")
@@ -30,10 +31,9 @@ if st.button('Prediksi Tingkat Stres'):
     st.header("Data yang Dimasukkan")
     st.dataframe(df_baru)
     
-    # Di sini Anda bisa menambahkan model prediksi Anda
-    # Contoh: prediksi = model.predict(df_baru)
-    # st.success(f"Tingkat Stres Anda: {prediksi}")
-
+    a = pickle.load(open('model_titanic.pkl', 'rb'))
+    hasil = a.predict(df_baru)
+     st.dataframe(hasil)
 # Menampilkan DataFrame
 if 'dataframe' in st.session_state:
     st.header("DataFrame Sebelumnya")
