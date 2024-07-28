@@ -31,7 +31,7 @@ if st.button('Prediksi Tingkat Stres'):
     st.header("Data yang Dimasukkan")
     st.dataframe(df_baru)
     
-    model = KNeighborsClassifier('n_neighbors': 6, 'p': 1, 'weights': 'distance')
+    model = KNeighborsClassifier(n_neighborsm=6, p= 1, weights= 'distance')
     model.predict(df_baru)
 
 # Menampilkan DataFrame
