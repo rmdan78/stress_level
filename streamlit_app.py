@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pickle
+from sklearn.neighbors import KNeighborsClassifier
 
 # Judul aplikasi
 st.title("Form Prediksi Tingkat Stres")
@@ -31,10 +31,9 @@ if st.button('Prediksi Tingkat Stres'):
     st.header("Data yang Dimasukkan")
     st.dataframe(df_baru)
     
-    a = pickle.load(open('model.pkl', 'rb'))
-    hasil = a.predict(df_baru)
-    st.dataframe(hasil)
-    
+    model = KNeighborsClassifier('n_neighbors': 6, 'p': 1, 'weights': 'distance')
+    model.predict(df_baru)
+
 # Menampilkan DataFrame
 if 'dataframe' in st.session_state:
     st.header("DataFrame Sebelumnya")
